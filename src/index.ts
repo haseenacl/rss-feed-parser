@@ -1,35 +1,39 @@
 import express from "express";
 import cors from "cors";
 import { connectDB } from "./config/db";
-import { getEnvVariable } from "./utils/helpers";
 import cookieParser from "cookie-parser";
+import rssRoutes from "./routes/rss.routes";
+import { swaggerDocs } from "./swagger/swagger";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3004;
 
 // Connect Database
 connectDB();
 
 // Middlewares
-app.use(cors({
-  origin: [
-    getEnvVariable('FRONT_END_URL')
-  ],
-  credentials: true,
-}));
-
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  })
+);
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// Root 
-app.get("/", async (_req, res) => {
-  res.send("Hai there, API is running...");
+// Swagger
+swaggerDocs(app);
+
+// Root endpoint
+app.get("/", (_req, res) => {
+  res.send("Hello! API is running...");
 });
 
+// API Routes
+app.use("/api", rssRoutes);
 
-// Start server
+// Start Server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
