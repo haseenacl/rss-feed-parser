@@ -31,12 +31,17 @@ const router = Router();
  *           schema:
  *             type: object
  *             properties:
+ *               name:
+ *                 type: string
+ *                 example: "BBC News"
  *               url:
  *                 type: string
  *                 example: "https://www.bbc.com/news/rss.xml"
  *     responses:
  *       200:
  *         description: Feed added successfully
+ *       400:
+ *         description: Invalid input
  */
 router.post("/rss/add", addFeed);
 
