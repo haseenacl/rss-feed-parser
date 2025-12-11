@@ -11,11 +11,11 @@ const PORT = process.env.PORT || 3004;
 // Connect Database
 connectDB();
 
-// Middlewares
 app.use(
   cors({
-    origin: "*",
-    credentials: true,
+    origin: ["http://localhost:3004", "http://localhost:3004/api-docs"],
+    methods: "GET,POST,PUT,DELETE",
+    allowedHeaders: "Content-Type,Authorization",
   })
 );
 

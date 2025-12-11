@@ -13,10 +13,10 @@ export const swaggerDocs = (app: Express) => {
       },
       servers: [
   {
-    url: "http://localhost:3004/api",
-    description: "Local API server"
-  },
-],
+    url: "http://localhost:3004/api"
+  }
+]
+
 
     },
     apis: ["./src/routes/*.ts"],
