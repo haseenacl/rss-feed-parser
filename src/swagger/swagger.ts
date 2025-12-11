@@ -12,12 +12,15 @@ export const swaggerDocs = (app: Express) => {
         description: "API documentation for RSS Feed Parser",
       },
       servers: [
-  {
-    url: "http://localhost:3004/api"
-  }
-]
-
-
+        {
+          url: "http://localhost:3004/api",
+          description: "Local server"
+        },
+        {
+          url: "https://rss-feed-parser-jpmn.onrender.com/api",
+          description: "Production server (Render)"
+        }
+      ]
     },
     apis: ["./src/routes/*.ts"],
   };
