@@ -11,7 +11,7 @@ const PORT = Number(process.env.PORT) || 3004;
 // Connect DB
 connectDB();
 
-// CORS
+// CORS - FIXED FOR SWAGGER
 app.use(
   cors({
     origin: "*",
@@ -31,7 +31,7 @@ app.get("/", (_req, res) => {
   res.send("Hello! API is running...");
 });
 
-// API routes
+// API Routes
 app.use("/api", rssRoutes);
 
 // Start server

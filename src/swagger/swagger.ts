@@ -13,16 +13,18 @@ export const swaggerDocs = (app: Express, port: number) => {
       },
       servers: [
         {
-          url: `http://localhost:${port}/api`,
-          description: "Local server",
-        },
-        {
           url: "https://rss-feed-parser-jpmn.onrender.com/api",
           description: "Production server",
         },
+        {
+          url: `http://localhost:${port}/api`,
+          description: "Local development server",
+        },
       ],
     },
-    apis: ["./src/routes/*.ts"],
+
+    // IMPORTANT: Use dist folder during build + src folder during dev
+    apis: ["./src/routes/*.ts", "./dist/routes/*.js"],
   };
 
   const swaggerSpec = swaggerJsDoc(options);
