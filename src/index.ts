@@ -6,14 +6,15 @@ import rssRoutes from "./routes/rss.routes";
 import { swaggerDocs } from "./swagger/swagger";
 
 const app = express();
-const PORT = process.env.PORT || 3004;
+const PORT = Number(process.env.PORT) || 3004;
 
-// Connect Database
+// Connect DB
 connectDB();
 
+// CORS
 app.use(
   cors({
-    origin: ["http://localhost:3004", "http://localhost:3004/api-docs"],
+    origin: "*",
     methods: "GET,POST,PUT,DELETE",
     allowedHeaders: "Content-Type,Authorization",
   })
@@ -23,17 +24,17 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Swagger
-swaggerDocs(app);
+swaggerDocs(app, PORT);
 
-// Root endpoint
+// Root
 app.get("/", (_req, res) => {
   res.send("Hello! API is running...");
 });
 
-// API Routes
+// API routes
 app.use("/api", rssRoutes);
 
-// Start Server
+// Start server
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });

@@ -2,7 +2,7 @@ import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import { Express } from "express";
 
-export const swaggerDocs = (app: Express) => {
+export const swaggerDocs = (app: Express, port: number) => {
   const options = {
     definition: {
       openapi: "3.0.0",
@@ -13,14 +13,14 @@ export const swaggerDocs = (app: Express) => {
       },
       servers: [
         {
-          url: "http://localhost:3004/api",
-          description: "Local server"
+          url: `http://localhost:${port}/api`,
+          description: "Local server",
         },
         {
           url: "https://rss-feed-parser-jpmn.onrender.com/api",
-          description: "Production server (Render)"
-        }
-      ]
+          description: "Production server",
+        },
+      ],
     },
     apis: ["./src/routes/*.ts"],
   };
@@ -29,5 +29,5 @@ export const swaggerDocs = (app: Express) => {
 
   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-  console.log("📘 Swagger Docs available at http://localhost:3004/api-docs");
+  console.log(`📘 Swagger Docs available at http://localhost:${port}/api-docs`);
 };
